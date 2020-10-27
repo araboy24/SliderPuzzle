@@ -54,15 +54,17 @@ class Tile(object):
         pygame.draw.rect(win, (0,0,0), [self.x, self.y, self.w, self.h], 2)
 
 def redrawGameWindow():
+    font = pygame.font.SysFont('comicsans', 50)
     if not won:
         pygame.draw.rect(win, (0, 0, 0), [0, 0, 600, 600])
     else:
         pygame.draw.rect(win, (0, 160, 0), [0, 0, 600, 600])
+        wonText = font.render('Nice! Press Space to Play Again!', 1, (255, 255, 255))
+        win.blit(wonText, (sw//2 - (wonText.get_width())//2, 20))
     pygame.draw.rect(win, (255, 255, 255), [100, 100, 400, 400])
     for t in tiles:
         t.draw(win)
     # win.blit(bg, (0, 0))
-    font = pygame.font.SysFont('comicsans', 50)
     # scoreText = font.render(str(p1score), 1, (255, 255, 255))
     # win.blit(score1, (sw - (score1.get_width()) - 20, 30))
     # pong.draw(win)
@@ -74,15 +76,11 @@ vals = []
 for x in range(15):
     vals.append(x+1)
 for i in range(15):
-    #tiles.append(Tile(i + 1, 100 + 100 * numbers[i][0], 100 + 100 * numbers[i][1]))
-    tiles.append(Tile(vals.pop(random.randrange(0,len(vals))), 100 + 100*numbers[i][0], 100 + 100 * numbers[i][1]))
+    tiles.append(Tile(i + 1, 100 + 100 * numbers[i][0], 100 + 100 * numbers[i][1]))
+    #tiles.append(Tile(vals.pop(random.randrange(0,len(vals))), 100 + 100*numbers[i][0], 100 + 100 * numbers[i][1]))
 run = True
 while run:
     clock.tick(40)
-    #tiles[0].y = 400
-    #tiles[0].x = 400
-    #tiles[0].point = (tiles[0].x, tiles[0].y)
-    #tiles[0].coordinate = ((tiles[0].x - 100) / 100, (tiles[0].y - 100) / 100)
 
     poss = numbers.copy()
     for t in tiles:
